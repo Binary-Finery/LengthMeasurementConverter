@@ -22,7 +22,7 @@
                 android:layout_weight=".5"
                 android:layout_marginEnd="8dp"
                 android:layout_height="wrap_content"
-                android:hint="millimeter"
+                android:hint="millimeters (mm)"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -40,7 +40,7 @@
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:hint="centimeter"
+                android:hint="centimeters (cm)"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,7 +66,7 @@
                 android:layout_weight=".5"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:hint="inch"
+                android:hint="inches (in)"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +83,7 @@
                 android:layout_weight=".5"
                 android:layout_marginStart="8dp"
                 android:layout_height="wrap_content"
-                android:hint="foot"
+                android:hint="feet (ft)"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -95,5 +95,12 @@
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+
+    <Button
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="reset values" tools:ignore="HardcodedText"/>
 
 </LinearLayout>
