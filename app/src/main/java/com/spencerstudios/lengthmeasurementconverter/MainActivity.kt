@@ -8,11 +8,13 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import java.util.*
+import java.math.BigDecimal
+import java.math.RoundingMode.HALF_EVEN
 
 class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatcher {
 
     private lateinit var arrayOfEditTexts: Array<EditText>
+    private var scale = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +38,14 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
         var input = "$s"
-        if (input == "." || input == ",")
-            input = "0"
+        if (input == "." || input == ",") input = "0"
 
         if (etMm.hasFocus()) {
             if ("$s".isNotEmpty()) {
-                val v = input.toDouble()
-                etCm.setText(formatValue(v / CM, etCm))
-                etInch.setText(formatValue(v / INCH,etInch))
-                etFt.setText(formatValue(v / FOOT,etFt))
+                val v = BigDecimal(input)
+                etCm.setText(formatValue(v.divide(CM, scale, HALF_EVEN)))
+                etInch.setText(formatValue(v.divide(INCH, scale, HALF_EVEN)))
+                etFt.setText(formatValue(v.divide(FOOT, scale, HALF_EVEN)))
             } else {
                 etCm.setText("")
                 etInch.setText("")
@@ -53,11 +54,11 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
         }
         if (etCm.hasFocus()) {
             if ("$s".isNotEmpty()) {
-                val v = input.toDouble()
-                val mm = v * CM
-                etMm.setText(formatValue(mm, etMm))
-                etInch.setText(formatValue(mm / INCH, etInch))
-                etFt.setText(formatValue(mm / FOOT, etFt))
+                val v = BigDecimal(input)
+                val mm = v.multiply(CM)
+                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
+                etInch.setText(formatValue(mm.divide(INCH,scale, HALF_EVEN)))
+                etFt.setText(formatValue(mm.divide(FOOT,scale, HALF_EVEN)))
             } else {
                 etMm.setText("")
                 etInch.setText("")
@@ -67,11 +68,11 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
 
         if (etInch.hasFocus()) {
             if ("$s".isNotEmpty()) {
-                val v = input.toDouble()
-                val mm = v * INCH
-                etMm.setText(formatValue(mm, etMm))
-                etCm.setText(formatValue(mm / CM, etCm))
-                etFt.setText(formatValue(mm / FOOT, etFt))
+                val v = BigDecimal(input)
+                val mm = v.multiply(INCH)
+                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
+                etCm.setText(formatValue(mm.divide(CM, scale, HALF_EVEN)))
+                etFt.setText(formatValue(mm.divide(FOOT,scale, HALF_EVEN)))
             } else {
                 etMm.setText("")
                 etCm.setText("")
@@ -80,11 +81,11 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
         }
         if (etFt.hasFocus()) {
             if ("$s".isNotEmpty()) {
-                val v = input.toDouble()
-                val mm = v * FOOT
-                etMm.setText(formatValue(mm, etMm))
-                etCm.setText(formatValue(mm / CM, etCm))
-                etInch.setText(formatValue(mm / INCH, etInch))
+                val v = BigDecimal(input)
+                val mm = v.multiply(FOOT)
+                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
+                etCm.setText(formatValue(mm.divide(CM,scale, HALF_EVEN)))
+                etInch.setText(formatValue(mm.divide(INCH,scale, HALF_EVEN)))
             } else {
                 etMm.setText("")
                 etCm.setText("")
@@ -95,41 +96,14 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         if (v?.hasFocus()!!) {
-            arrayOfEditTexts.forEach { i ->
-                if (v as EditText == i) {
-                    i.addTextChangedListener(this)
-                } else i.removeTextChangedListener(this)
+            arrayOfEditTexts.forEach { editText ->
+                if (v as EditText == editText) editText.addTextChangedListener(this)
+                else editText.removeTextChangedListener(this)
             }
         }
     }
 
-    private fun formatValue(value: Double, et : EditText): String {
-        val stringValue = String.format(Locale.getDefault(), "%f", value)
-
-
-        val doub = stringValue.toDouble()
-
-        if(doub >= Double.MAX_VALUE){
-            et.error = "number too big!"
-        }
-
-        if (doub % 1 > 0.0) {
-            return if (stringValue[stringValue.length - 1] == '0') {
-                removeTrailingZeros(stringValue)
-            } else stringValue
-        }
-        return "${doub.toLong()}"
-    }
-
-    private fun removeTrailingZeros(n: String): String {
-        var idx = 1
-        for (i in n.length - 1 downTo 0) {
-            if (n[i] == '0')
-                idx++
-            else break
-        }
-        return n.substring(0..n.length - idx)
-    }
+    private fun formatValue(value: BigDecimal): String = value.stripTrailingZeros().toPlainString()
 
     private fun reset() {
         var x = 0

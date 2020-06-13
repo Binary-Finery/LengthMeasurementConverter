@@ -1,5 +1,7 @@
 package com.spencerstudios.lengthmeasurementconverter
 
-const val CM = 10.0
-const val INCH = 25.4
-const val FOOT = 304.8
+import java.math.BigDecimal
+
+val CM = BigDecimal(10.0)
+val INCH = BigDecimal(25.4)
+val FOOT = BigDecimal(304.8)
