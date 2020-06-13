@@ -21,11 +21,12 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        arrayOfEditTexts = arrayOf(etMm, etCm, etInch, etFt)
+        arrayOfEditTexts = arrayOf(etMm, etCm, etInch, etFt, etYd, etM)
 
         0.until(arrayOfEditTexts.size).forEach { i ->
             arrayOfEditTexts[i].onFocusChangeListener = this
         }
+
         btnReset.setOnClickListener { reset() }
     }
 
@@ -46,10 +47,14 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
                 etCm.setText(formatValue(v.divide(CM, scale, HALF_EVEN)))
                 etInch.setText(formatValue(v.divide(INCH, scale, HALF_EVEN)))
                 etFt.setText(formatValue(v.divide(FOOT, scale, HALF_EVEN)))
+                etYd.setText(formatValue(v.divide(YD, scale, HALF_EVEN)))
+                etM.setText(formatValue(v.divide(M, scale, HALF_EVEN)))
             } else {
                 etCm.setText("")
                 etInch.setText("")
                 etFt.setText("")
+                etYd.setText("")
+                etM.setText("")
             }
         }
         if (etCm.hasFocus()) {
@@ -59,10 +64,14 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
                 etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
                 etInch.setText(formatValue(mm.divide(INCH,scale, HALF_EVEN)))
                 etFt.setText(formatValue(mm.divide(FOOT,scale, HALF_EVEN)))
+                etYd.setText(formatValue(mm.divide(YD, scale, HALF_EVEN)))
+                etM.setText(formatValue(mm.divide(M, scale, HALF_EVEN)))
             } else {
                 etMm.setText("")
                 etInch.setText("")
                 etFt.setText("")
+                etYd.setText("")
+                etM.setText("")
             }
         }
 
@@ -73,10 +82,14 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
                 etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
                 etCm.setText(formatValue(mm.divide(CM, scale, HALF_EVEN)))
                 etFt.setText(formatValue(mm.divide(FOOT,scale, HALF_EVEN)))
+                etYd.setText(formatValue(mm.divide(YD, scale, HALF_EVEN)))
+                etM.setText(formatValue(mm.divide(M, scale, HALF_EVEN)))
             } else {
                 etMm.setText("")
                 etCm.setText("")
                 etFt.setText("")
+                etYd.setText("")
+                etM.setText("")
             }
         }
         if (etFt.hasFocus()) {
@@ -86,10 +99,50 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
                 etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
                 etCm.setText(formatValue(mm.divide(CM,scale, HALF_EVEN)))
                 etInch.setText(formatValue(mm.divide(INCH,scale, HALF_EVEN)))
+                etYd.setText(formatValue(mm.divide(YD, scale, HALF_EVEN)))
+                etM.setText(formatValue(mm.divide(M, scale, HALF_EVEN)))
             } else {
                 etMm.setText("")
                 etCm.setText("")
                 etInch.setText("")
+                etYd.setText("")
+                etM.setText("")
+            }
+        }
+
+        if (etYd.hasFocus()) {
+            if ("$s".isNotEmpty()) {
+                val v = BigDecimal(input)
+                val mm = v.multiply(YD)
+                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
+                etCm.setText(formatValue(mm.divide(CM,scale, HALF_EVEN)))
+                etInch.setText(formatValue(mm.divide(INCH,scale, HALF_EVEN)))
+                etFt.setText(formatValue(mm.divide(FOOT, scale, HALF_EVEN)))
+                etM.setText(formatValue(mm.divide(M, scale, HALF_EVEN)))
+            } else {
+                etMm.setText("")
+                etCm.setText("")
+                etInch.setText("")
+                etFt.setText("")
+                etM.setText("")
+            }
+        }
+
+        if (etM.hasFocus()) {
+            if ("$s".isNotEmpty()) {
+                val v = BigDecimal(input)
+                val mm = v.multiply(M)
+                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
+                etCm.setText(formatValue(mm.divide(CM,scale, HALF_EVEN)))
+                etInch.setText(formatValue(mm.divide(INCH,scale, HALF_EVEN)))
+                etFt.setText(formatValue(mm.divide(FOOT, scale, HALF_EVEN)))
+                etYd.setText(formatValue(mm.divide(YD, scale, HALF_EVEN)))
+            } else {
+                etMm.setText("")
+                etCm.setText("")
+                etInch.setText("")
+                etFt.setText("")
+                etYd.setText("")
             }
         }
     }
