@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="reset values" tools:ignore="HardcodedText"/>
+                    android:text="reset all values" tools:ignore="HardcodedText"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
