@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.select_units.view.*
 
-class DialogFactory(private val ctx : Context) {
+class DialogFactory(private val ctx: Context) {
 
     @SuppressLint("InflateParams")
     fun unitDialog() {
@@ -31,7 +31,6 @@ class DialogFactory(private val ctx : Context) {
                         if (it.isChecked) sb.append("1") else sb.append("0")
                     }
                     PrefUtils(ctx).setUnits("$sb")
-                    sb.setLength(0)
                     val activity = ctx as MainActivity
                     activity.displayUnits()
                 } else infoDialog()
@@ -48,9 +47,7 @@ class DialogFactory(private val ctx : Context) {
                 unitDialog()
                 d.dismiss()
             }
-            setNegativeButton("cancel") { d, _ ->
-                d.dismiss()
-            }
+            setNegativeButton("cancel") { d, _ -> d.dismiss() }
             create().show()
         }
     }
