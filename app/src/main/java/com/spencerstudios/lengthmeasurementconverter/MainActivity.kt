@@ -20,166 +20,70 @@ import java.math.RoundingMode.HALF_EVEN
 
 class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatcher {
 
-    private lateinit var arrayOfEditTexts: Array<EditText>
-    private lateinit var arrayOfValues: Array<BigDecimal>
-    private lateinit var arrayOfTil : Array<TextInputLayout>
-    private var scale = 10
+    private lateinit var editTexts: Array<EditText>
+    private lateinit var values: Array<BigDecimal>
+    private lateinit var arrayOfTextInputLayouts: Array<TextInputLayout>
+    private val scale: Int = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        arrayOfEditTexts = arrayOf(etMm, etCm, etInch, etFt, etYd, etM)
-        arrayOfTil = arrayOf(tilMm, tilCm, tilIn, tilFt, tilYd, tilM)
-        arrayOfValues = arrayOf(MM, CM, INCH, FOOT, YD, M)
+        editTexts = arrayOf(etMm, etCm, etInch, etFt, etYd, etM)
+        arrayOfTextInputLayouts = arrayOf(tilMm, tilCm, tilIn, tilFt, tilYd, tilM)
+        values = arrayOf(MM, CM, INCH, FOOT, YD, M)
 
-        0.until(arrayOfEditTexts.size).forEach { i ->
-            arrayOfEditTexts[i].onFocusChangeListener = this
-        }
-
+        editTexts.forEach { it.onFocusChangeListener = this }
         btnReset.setOnClickListener { reset() }
-
         displayUnits()
     }
 
+    private fun calc(idx: Int, s: String, input: String) {
+        if (s.isNotEmpty()) {
+            val mm: BigDecimal = if (idx == 0) BigDecimal(input)
+            else BigDecimal(input).multiply(values[idx])
 
-    override fun afterTextChanged(editable: Editable?) {
+            for (i in 0 until editTexts.size) {
+                if (i == idx) continue
+                if (i == 0) editTexts[i].setText(mm.setScale(scale, HALF_EVEN).stripTrailingZeros().toPlainString())
+                else editTexts[i].setText(mm.divide(values[i], scale, HALF_EVEN).stripTrailingZeros().toPlainString())
+            }
+        } else for (i in 0 until editTexts.size)
+            if (i != idx) editTexts[i].setText("")
     }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-    }
+    override fun afterTextChanged(editable: Editable?) {}
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
         var input = "$s"
         if (input == "." || input == ",") input = "0"
-
-        if (etMm.hasFocus()) {
-            if ("$s".isNotEmpty()) {
-                val v = BigDecimal(input)
-                etCm.setText(formatValue(v.divide(CM, scale, HALF_EVEN)))
-                etInch.setText(formatValue(v.divide(INCH, scale, HALF_EVEN)))
-                etFt.setText(formatValue(v.divide(FOOT, scale, HALF_EVEN)))
-                etYd.setText(formatValue(v.divide(YD, scale, HALF_EVEN)))
-                etM.setText(formatValue(v.divide(M, scale, HALF_EVEN)))
-            } else {
-                etCm.setText("")
-                etInch.setText("")
-                etFt.setText("")
-                etYd.setText("")
-                etM.setText("")
-            }
-        }
-        if (etCm.hasFocus()) {
-            if ("$s".isNotEmpty()) {
-                val v = BigDecimal(input)
-                val mm = v.multiply(CM)
-                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
-                etInch.setText(formatValue(mm.divide(INCH, scale, HALF_EVEN)))
-                etFt.setText(formatValue(mm.divide(FOOT, scale, HALF_EVEN)))
-                etYd.setText(formatValue(mm.divide(YD, scale, HALF_EVEN)))
-                etM.setText(formatValue(mm.divide(M, scale, HALF_EVEN)))
-            } else {
-                etMm.setText("")
-                etInch.setText("")
-                etFt.setText("")
-                etYd.setText("")
-                etM.setText("")
-            }
-        }
-
-        if (etInch.hasFocus()) {
-            if ("$s".isNotEmpty()) {
-                val v = BigDecimal(input)
-                val mm = v.multiply(INCH)
-                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
-                etCm.setText(formatValue(mm.divide(CM, scale, HALF_EVEN)))
-                etFt.setText(formatValue(mm.divide(FOOT, scale, HALF_EVEN)))
-                etYd.setText(formatValue(mm.divide(YD, scale, HALF_EVEN)))
-                etM.setText(formatValue(mm.divide(M, scale, HALF_EVEN)))
-            } else {
-                etMm.setText("")
-                etCm.setText("")
-                etFt.setText("")
-                etYd.setText("")
-                etM.setText("")
-            }
-        }
-        if (etFt.hasFocus()) {
-            if ("$s".isNotEmpty()) {
-                val v = BigDecimal(input)
-                val mm = v.multiply(FOOT)
-                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
-                etCm.setText(formatValue(mm.divide(CM, scale, HALF_EVEN)))
-                etInch.setText(formatValue(mm.divide(INCH, scale, HALF_EVEN)))
-                etYd.setText(formatValue(mm.divide(YD, scale, HALF_EVEN)))
-                etM.setText(formatValue(mm.divide(M, scale, HALF_EVEN)))
-            } else {
-                etMm.setText("")
-                etCm.setText("")
-                etInch.setText("")
-                etYd.setText("")
-                etM.setText("")
-            }
-        }
-
-        if (etYd.hasFocus()) {
-            if ("$s".isNotEmpty()) {
-                val v = BigDecimal(input)
-                val mm = v.multiply(YD)
-                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
-                etCm.setText(formatValue(mm.divide(CM, scale, HALF_EVEN)))
-                etInch.setText(formatValue(mm.divide(INCH, scale, HALF_EVEN)))
-                etFt.setText(formatValue(mm.divide(FOOT, scale, HALF_EVEN)))
-                etM.setText(formatValue(mm.divide(M, scale, HALF_EVEN)))
-            } else {
-                etMm.setText("")
-                etCm.setText("")
-                etInch.setText("")
-                etFt.setText("")
-                etM.setText("")
-            }
-        }
-
-        if (etM.hasFocus()) {
-            if ("$s".isNotEmpty()) {
-                val v = BigDecimal(input)
-                val mm = v.multiply(M)
-                etMm.setText(formatValue(mm.setScale(scale, HALF_EVEN)))
-                etCm.setText(formatValue(mm.divide(CM, scale, HALF_EVEN)))
-                etInch.setText(formatValue(mm.divide(INCH, scale, HALF_EVEN)))
-                etFt.setText(formatValue(mm.divide(FOOT, scale, HALF_EVEN)))
-                etYd.setText(formatValue(mm.divide(YD, scale, HALF_EVEN)))
-            } else {
-                etMm.setText("")
-                etCm.setText("")
-                etInch.setText("")
-                etFt.setText("")
-                etYd.setText("")
+        for (i in 0 until editTexts.size) {
+            if (editTexts[i].hasFocus()) {
+                calc(i, "$s", input)
+                break
             }
         }
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         if (v?.hasFocus()!!) {
-            arrayOfEditTexts.forEach { editText ->
-                if (v as EditText == editText) editText.addTextChangedListener(this)
-                else editText.removeTextChangedListener(this)
+            editTexts.forEach {
+                if (v as EditText == it) it.addTextChangedListener(this)
+                else it.removeTextChangedListener(this)
             }
         }
     }
 
-    private fun formatValue(value: BigDecimal): String = value.stripTrailingZeros().toPlainString()
-
     private fun reset() {
         var x = 0
-        for (i in 0 until arrayOfEditTexts.size) {
-            arrayOfEditTexts[i].removeTextChangedListener(this)
-            arrayOfEditTexts[i].setText("")
-            if (arrayOfEditTexts[i].hasFocus()) x = i
+        (0 until editTexts.size).forEach { i ->
+            editTexts[i].removeTextChangedListener(this)
+            editTexts[i].setText("")
+            if (editTexts[i].hasFocus()) x = i
         }
-        arrayOfEditTexts[x].addTextChangedListener(this)
+        editTexts[x].addTextChangedListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -199,64 +103,53 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
 
     @SuppressLint("InflateParams")
     private fun unitDialog() {
-        val dialog = AlertDialog.Builder(this)
-        dialog.setTitle("Units")
         val v = LayoutInflater.from(this).inflate(R.layout.select_units, null)
         val units = arrayOf(v.cb_mm, v.cb_cm, v.cb_inch, v.cb_ft, v.cb_yd, v.cb_m)
-        dialog.setView(v)
-
         val prefs = PrefUtils(this@MainActivity).getUnits()
+
         for (i in 0 until prefs.length) {
             units[i].isChecked = prefs[i] == '1'
         }
 
-        dialog.setNegativeButton("cancel") { d, _ ->
-            d.dismiss()
-        }
-
-        dialog.setPositiveButton("apply") { d, _ ->
-
-            var qty = 0
-
-            units.forEach {
-                if (it.isChecked) qty++
+        AlertDialog.Builder(this).apply {
+            setTitle("Units")
+            setView(v)
+            setNegativeButton("cancel") { d, _ -> d.dismiss() }
+            setPositiveButton("apply") { _, _ ->
+                var qty = 0
+                units.forEach { if (it.isChecked) qty++ }
+                if (qty >= 2) {
+                    val sb = StringBuilder()
+                    units.forEach {
+                        if (it.isChecked) sb.append("1") else sb.append("0")
+                    }
+                    PrefUtils(this@MainActivity).setUnits("$sb")
+                    sb.setLength(0)
+                    displayUnits()
+                } else infoDialog()
             }
-
-            if (qty >= 2) {
-                val sb = StringBuilder()
-                units.forEach {
-                    if (it.isChecked) sb.append("1") else sb.append("0")
-                }
-                PrefUtils(this@MainActivity).setUnits("$sb")
-                sb.setLength(0)
-                displayUnits()
-                d.dismiss()
-            } else {
-                infoDialog()
-                d.dismiss()
-            }
+            create().show()
         }
-        dialog.create().show()
     }
 
     private fun displayUnits() {
         val prefs = PrefUtils(this).getUnits()
         for (i in 0 until prefs.length) {
-            val show : Boolean = prefs[i] == '1'
-            arrayOfEditTexts[i].visibility = if (show) View.VISIBLE else View.GONE
-            arrayOfTil[i].visibility = if (show) View.VISIBLE else View.GONE
+            val show: Boolean = prefs[i] == '1'
+            editTexts[i].visibility = if (show) View.VISIBLE else View.GONE
+            arrayOfTextInputLayouts[i].visibility = if (show) View.VISIBLE else View.GONE
         }
     }
 
-    private fun infoDialog(){
+    private fun infoDialog() {
         AlertDialog.Builder(this).apply {
             setTitle("For Your Info")
             setMessage("you must select a minimum of two units")
-            setPositiveButton("select units"){d,_->
+            setPositiveButton("select units") { d, _ ->
                 unitDialog()
                 d.dismiss()
             }
-            setNegativeButton("cancel"){d,_->
+            setNegativeButton("cancel") { d, _ ->
                 d.dismiss()
             }
             create().show()
