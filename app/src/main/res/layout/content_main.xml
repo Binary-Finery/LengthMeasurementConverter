@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="8dp"
+        android:padding="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
         tools:context=".MainActivity">
@@ -21,6 +21,7 @@
                       android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilMm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="millimeters (mm)"
@@ -37,6 +38,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilCm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -54,6 +56,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -70,6 +73,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilFt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -87,6 +91,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilYd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -104,6 +109,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilM"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"

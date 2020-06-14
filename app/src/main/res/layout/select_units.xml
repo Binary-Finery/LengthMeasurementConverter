@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              android:padding="16dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content" tools:ignore="UselessParent">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_mm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="millimeter (mm)"
+                    tools:ignore="HardcodedText"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_cm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="centimeters (cm)"
+                    tools:ignore="HardcodedText"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_inch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="inches (in)"
+                    tools:ignore="HardcodedText"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_ft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="feet (ft)"
+                    tools:ignore="HardcodedText"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_yd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="yards (yd)"
+                    tools:ignore="HardcodedText"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_m"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="meters (m)"
+                    tools:ignore="HardcodedText"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
