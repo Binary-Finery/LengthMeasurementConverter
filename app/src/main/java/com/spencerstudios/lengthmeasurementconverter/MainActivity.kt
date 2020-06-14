@@ -49,8 +49,7 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
                 if (i == 0) editTexts[i].setText(mm.setScale(scale, HALF_EVEN).stripTrailingZeros().toPlainString())
                 else editTexts[i].setText(mm.divide(values[i], scale, HALF_EVEN).stripTrailingZeros().toPlainString())
             }
-        } else for (i in 0 until editTexts.size)
-            if (i != idx) editTexts[i].setText("")
+        } else for (i in 0 until editTexts.size) if (i != idx) editTexts[i].setText("")
     }
 
     override fun afterTextChanged(editable: Editable?) {}
