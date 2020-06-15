@@ -33,23 +33,25 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
         displayUnits()
     }
 
-    private fun calc(idx: Int, s: String, input: String) {
-        if (s.isNotEmpty()) {
-            val mm: BigDecimal = if (idx == 0) BigDecimal(input)
-            else BigDecimal(input).multiply(values[idx])
+    private fun calc(idx: Int, str: String) {
+        val st = System.currentTimeMillis()
+        val input = if(str == "."  || str == ",") "0" else str
+        if (input.isNotEmpty()) {
+            val mm = if (idx == 0) BigDecimal(input) else BigDecimal(input).multiply(values[idx])
             for (i in 0 until editTexts.size) {
                 if (i == idx) continue
                 if (i == 0) editTexts[i].setText(mm.setScale(scale, HALF_EVEN).stripTrailingZeros().toPlainString())
                 else editTexts[i].setText(mm.divide(values[i], scale, HALF_EVEN).stripTrailingZeros().toPlainString())
             }
         } else for (i in 0 until editTexts.size) if (i != idx) editTexts[i].setText("")
+        supportActionBar?.subtitle = "${System.currentTimeMillis() - st}ms"
     }
 
     override fun afterTextChanged(editable: Editable?) {}
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        calc(focusedEditText, "$s", if("$s" == "."  || "$s" == ",") "0" else "$s")
+    override fun onTextChanged(input: CharSequence?, start: Int, before: Int, count: Int) {
+        calc(focusedEditText, "$input")
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
