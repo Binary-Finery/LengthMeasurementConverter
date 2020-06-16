@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
     private lateinit var editTexts: Array<EditText>
     private lateinit var arrayOfTextInputLayouts: Array<TextInputLayout>
     private var focusedEditText = 0
+    private var devMode : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
