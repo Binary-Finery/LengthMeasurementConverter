@@ -10,6 +10,9 @@ val INCH = BigDecimal(25.4)
 val FOOT = BigDecimal(304.8)
 val YD = BigDecimal(914.4)
 val M = BigDecimal(1000)
+val KM = BigDecimal(1000000)
+val MI = BigDecimal(1609344)
+val NMI = BigDecimal(1852000)
 
-val values = arrayOf(MM, CM, INCH, FOOT, YD, M)
+val values = arrayOf(MM, CM, INCH, FOOT, YD, M, KM, MI, NMI)
 

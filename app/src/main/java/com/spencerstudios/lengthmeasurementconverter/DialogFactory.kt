@@ -11,7 +11,7 @@ class DialogFactory(private val ctx: Context) {
     @SuppressLint("InflateParams")
     fun unitDialog() {
         val v = LayoutInflater.from(ctx).inflate(R.layout.select_units, null)
-        val units = arrayOf(v.cb_mm, v.cb_cm, v.cb_inch, v.cb_ft, v.cb_yd, v.cb_m)
+        val units = arrayOf(v.cb_mm, v.cb_cm, v.cb_inch, v.cb_ft, v.cb_yd, v.cb_m, v.cb_km, v.cb_mi, v.cb_nmi)
         val prefs = PrefUtils(ctx).getUnits()
 
         for (i in 0 until prefs.length) {

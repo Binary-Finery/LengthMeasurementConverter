@@ -12,10 +12,10 @@
         tools:showIn="@layout/activity_main"
         tools:context=".MainActivity">
 
-
     <ScrollView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fillViewport="true" tools:ignore="UselessParent">
+                android:fillViewport="true"
+                tools:ignore="UselessParent">
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -37,7 +37,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilCm"
                     android:layout_width="match_parent"
@@ -54,7 +53,6 @@
                         android:inputType="numberDecimal|number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilIn"
@@ -90,7 +88,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilYd"
                     android:layout_width="match_parent"
@@ -107,7 +104,6 @@
                         android:inputType="numberDecimal|number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilM"
@@ -126,12 +122,59 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                    android:id="@+id/btnReset"
-                    android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilKm"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="reset all values" tools:ignore="HardcodedText"/>
+                    android:layout_marginTop="12dp"
+                    android:hint="kilometers (km)"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etKm"
+                        android:layout_width="match_parent"
+                        android:imeOptions="actionDone"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal|number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilMi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="miles (mi)"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMi"
+                        android:layout_width="match_parent"
+                        android:imeOptions="actionDone"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal|number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilNmi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="nautical miles (mi)"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNmi"
+                        android:layout_width="match_parent"
+                        android:imeOptions="actionDone"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal|number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
+
     </ScrollView>
+
 </LinearLayout>

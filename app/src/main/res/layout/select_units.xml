@@ -6,7 +6,8 @@
               android:layout_height="match_parent">
 
     <ScrollView android:layout_width="match_parent"
-                android:layout_height="wrap_content" tools:ignore="UselessParent">
+                android:layout_height="wrap_content"
+                tools:ignore="UselessParent">
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -16,7 +17,7 @@
                     android:id="@+id/cb_mm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="millimeter (mm)"
+                    android:text="millimeters (mm)"
                     tools:ignore="HardcodedText"/>
 
             <com.google.android.material.checkbox.MaterialCheckBox
@@ -54,6 +55,26 @@
                     android:text="meters (m)"
                     tools:ignore="HardcodedText"/>
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_km"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="kilometers (km)"
+                    tools:ignore="HardcodedText"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_mi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="miles (mi)"
+                    tools:ignore="HardcodedText"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_nmi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="nautical miles (nmi)"
+                    tools:ignore="HardcodedText"/>
 
         </LinearLayout>
 

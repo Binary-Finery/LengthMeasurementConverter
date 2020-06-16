@@ -25,16 +25,14 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        editTexts = arrayOf(etMm, etCm, etInch, etFt, etYd, etM)
-        arrayOfTextInputLayouts = arrayOf(tilMm, tilCm, tilIn, tilFt, tilYd, tilM)
+        editTexts = arrayOf(etMm, etCm, etInch, etFt, etYd, etM, etKm, etMi,etNmi)
+        arrayOfTextInputLayouts = arrayOf(tilMm, tilCm, tilIn, tilFt, tilYd, tilM, tilKm, tilMi, tilNmi)
 
         editTexts.forEach { it.onFocusChangeListener = this }
-        btnReset.setOnClickListener { reset() }
         displayUnits()
     }
 
     private fun calc(idx: Int, str: String) {
-        val st = System.currentTimeMillis()
         val input = if(str == "."  || str == ",") "0" else str
         if (input.isNotEmpty()) {
             val mm = if (idx == 0) BigDecimal(input) else BigDecimal(input).multiply(values[idx])
@@ -44,10 +42,10 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
                 else editTexts[i].setText(mm.divide(values[i], scale, HALF_EVEN).stripTrailingZeros().toPlainString())
             }
         } else for (i in 0 until editTexts.size) if (i != idx) editTexts[i].setText("")
-        supportActionBar?.subtitle = "${System.currentTimeMillis() - st}ms"
     }
 
     override fun afterTextChanged(editable: Editable?) {}
+
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
     override fun onTextChanged(input: CharSequence?, start: Int, before: Int, count: Int) {
@@ -81,8 +79,12 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
+            R.id.action_units -> {
                 DialogFactory(this).unitDialog()
+                true
+            }
+            R.id.action_clear -> {
+                reset()
                 true
             }
             else -> super.onOptionsItemSelected(item)

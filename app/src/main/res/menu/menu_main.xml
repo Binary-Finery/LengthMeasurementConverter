@@ -3,9 +3,15 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.spencerstudios.lengthmeasurementconverter.MainActivity">
 
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
+    <item android:id="@+id/action_clear"
+          android:title="clear all"
+          android:icon="@drawable/baseline_delete_sweep_white_24"
+          android:orderInCategory="100"
+          app:showAsAction="always" tools:ignore="AlwaysShowAction,HardcodedText"/>
+
+    <item android:id="@+id/action_units"
+          android:title="select units"
           android:icon="@drawable/baseline_filter_alt_white_24"
           android:orderInCategory="100"
-          app:showAsAction="always"/>
+          app:showAsAction="always" tools:ignore="HardcodedText"/>
 </menu>
