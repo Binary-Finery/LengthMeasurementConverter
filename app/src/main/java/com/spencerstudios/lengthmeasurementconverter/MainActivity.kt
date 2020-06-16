@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        editTexts = arrayOf(etMm, etCm, etInch, etFt, etYd, etM, etKm, etMi,etNmi)
+        editTexts = arrayOf(etMm, etCm, etInch, etFt, etYd, etM, etKm, etMi, etNmi)
         arrayOfTextInputLayouts = arrayOf(tilMm, tilCm, tilIn, tilFt, tilYd, tilM, tilKm, tilMi, tilNmi)
 
         editTexts.forEach { it.onFocusChangeListener = this }
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
     }
 
     private fun calc(idx: Int, str: String) {
-        val input = if(str == "."  || str == ",") "0" else str
+        val input = if (str == "." || str == ",") "0" else str
         if (input.isNotEmpty()) {
             val mm = if (idx == 0) BigDecimal(input) else BigDecimal(input).multiply(values[idx])
             for (i in 0 until editTexts.size) {
@@ -45,7 +46,6 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
     }
 
     override fun afterTextChanged(editable: Editable?) {}
-
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
     override fun onTextChanged(input: CharSequence?, start: Int, before: Int, count: Int) {
@@ -58,8 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
                 if (v as EditText == it) {
                     it.addTextChangedListener(this)
                     focusedEditText = editTexts.indexOf(it)
-                }
-                else it.removeTextChangedListener(this)
+                } else it.removeTextChangedListener(this)
             }
         }
     }
@@ -85,6 +84,12 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
             }
             R.id.action_clear -> {
                 reset()
+                true
+            }
+            R.id.action_share -> {
+                if (editTexts[0].text.isNotEmpty()) {
+                    share(this, editTexts)
+                } else Toast.makeText(this, "nothing to share!", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

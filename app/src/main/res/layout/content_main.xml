@@ -161,7 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:hint="nautical miles (mi)"
+                    android:hint="nautical miles (nmi)"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
