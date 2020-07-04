@@ -10,7 +10,7 @@
         android:padding="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
-        tools:context=".MainActivity">
+        tools:context=".activities.MainActivity">
 
     <ScrollView android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,7 +26,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="millimeters (mm)"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etMm"
@@ -43,6 +47,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="centimeters (cm)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -60,6 +67,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="inches (in)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -77,6 +87,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="feet (ft)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -94,6 +107,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="yards (yd)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -111,6 +127,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="meters (m)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -128,6 +147,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="kilometers (km)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -145,6 +167,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="miles (mi)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -162,6 +187,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="nautical miles (nmi)"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_baseline_file_copy_24"
+                    app:endIconContentDescription="copy value"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:ignore="HardcodedText">
 
                 <com.google.android.material.textfield.TextInputEditText

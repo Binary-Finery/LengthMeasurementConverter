@@ -1,4 +1,4 @@
-package com.spencerstudios.lengthmeasurementconverter
+package com.spencerstudios.lengthmeasurementconverter.activities
 
 import android.os.Bundle
 import android.text.Editable
@@ -10,6 +10,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
+import com.spencerstudios.lengthmeasurementconverter.R
+import com.spencerstudios.lengthmeasurementconverter.constants.scale
+import com.spencerstudios.lengthmeasurementconverter.constants.values
+import com.spencerstudios.lengthmeasurementconverter.dialogs.DialogFactory
+import com.spencerstudios.lengthmeasurementconverter.utilities.PrefUtils
+import com.spencerstudios.lengthmeasurementconverter.utilities.copySingleValue
+import com.spencerstudios.lengthmeasurementconverter.utilities.share
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.math.BigDecimal
@@ -20,7 +27,6 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
     private lateinit var editTexts: Array<EditText>
     private lateinit var arrayOfTextInputLayouts: Array<TextInputLayout>
     private var focusedEditText = 0
-    private var devMode : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,23 +36,47 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
         editTexts = arrayOf(etMm, etCm, etInch, etFt, etYd, etM, etKm, etMi, etNmi)
         arrayOfTextInputLayouts = arrayOf(tilMm, tilCm, tilIn, tilFt, tilYd, tilM, tilKm, tilMi, tilNmi)
 
-        editTexts.forEach { it.onFocusChangeListener = this }
+        for(i in arrayOfTextInputLayouts.indices){
+            editTexts[i].onFocusChangeListener = this
+            arrayOfTextInputLayouts[i].setEndIconOnClickListener {
+                copySingleValue(
+                    it.context,
+                    editTexts[i],
+                    i
+                )
+            }
+        }
         displayUnits()
     }
 
     private fun calc(idx: Int, str: String) {
         val input = if (str == "." || str == ",") "0" else str
         if (input.isNotEmpty()) {
-            val mm = if (idx == 0) BigDecimal(input) else BigDecimal(input).multiply(values[idx])
-            for (i in 0 until editTexts.size) {
-                if (i == idx) continue
-                if (i == 0) editTexts[i].setText(mm.setScale(scale, HALF_EVEN).stripTrailingZeros().toPlainString())
-                else editTexts[i].setText(mm.divide(values[i], scale, HALF_EVEN).stripTrailingZeros().toPlainString())
+            val mm = if (idx == 0) BigDecimal(input) else BigDecimal(input).multiply(
+                values[idx])
+            for (i in editTexts.indices) {
+                if (i == idx) {
+                    continue
+                }
+                if (i == 0) {
+                    editTexts[i].setText(mm.setScale(scale, HALF_EVEN).stripTrailingZeros().toPlainString())
+                } else {
+                    editTexts[i].setText(mm.divide(
+                        values[i],
+                        scale, HALF_EVEN).stripTrailingZeros().toPlainString())
+                }
             }
-        } else for (i in 0 until editTexts.size) if (i != idx) editTexts[i].setText("")
+        } else {
+            for (i in editTexts.indices) {
+                if (i != idx) {
+                    editTexts[i].setText("")
+                }
+            }
+        }
     }
 
     override fun afterTextChanged(editable: Editable?) {}
+
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
     override fun onTextChanged(input: CharSequence?, start: Int, before: Int, count: Int) {
@@ -59,7 +89,9 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
                 if (v as EditText == it) {
                     it.addTextChangedListener(this)
                     focusedEditText = editTexts.indexOf(it)
-                } else it.removeTextChangedListener(this)
+                } else {
+                    it.removeTextChangedListener(this)
+                }
             }
         }
     }
@@ -80,7 +112,10 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_units -> {
-                DialogFactory(this).unitDialog()
+                DialogFactory(
+                    this
+                )
+                    .unitDialog()
                 true
             }
             R.id.action_clear -> {
@@ -89,8 +124,13 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
             }
             R.id.action_share -> {
                 if (editTexts[0].text.isNotEmpty()) {
-                    share(this, editTexts)
-                } else Toast.makeText(this, "nothing to share!", Toast.LENGTH_SHORT).show()
+                    share(
+                        this,
+                        editTexts
+                    )
+                } else {
+                    Toast.makeText(this, "nothing to share!", Toast.LENGTH_SHORT).show()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -98,8 +138,10 @@ class MainActivity : AppCompatActivity(), View.OnFocusChangeListener, TextWatche
     }
 
     fun displayUnits() {
-        val prefs = PrefUtils(this).getUnits()
-        for (i in 0 until prefs.length) {
+        val prefs = PrefUtils(
+            this
+        ).getUnits()
+        for (i in prefs.indices) {
             val show: Boolean = prefs[i] == '1'
             editTexts[i].visibility = if (show) View.VISIBLE else View.GONE
             arrayOfTextInputLayouts[i].visibility = if (show) View.VISIBLE else View.GONE

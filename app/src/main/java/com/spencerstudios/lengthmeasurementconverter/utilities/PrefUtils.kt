@@ -1,4 +1,4 @@
-package com.spencerstudios.lengthmeasurementconverter
+package com.spencerstudios.lengthmeasurementconverter.utilities
 
 import android.content.Context
 import android.preference.PreferenceManager

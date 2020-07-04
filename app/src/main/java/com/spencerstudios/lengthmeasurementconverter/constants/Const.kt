@@ -1,4 +1,4 @@
-package com.spencerstudios.lengthmeasurementconverter
+package com.spencerstudios.lengthmeasurementconverter.constants
 
 import java.math.BigDecimal
 
@@ -14,5 +14,17 @@ val KM = BigDecimal(1000000)
 val MI = BigDecimal(1609344)
 val NMI = BigDecimal(1852000)
 
-val values = arrayOf(MM, CM, INCH, FOOT, YD, M, KM, MI, NMI)
+val labels = arrayOf("millimeters", "centimeters", "inches", "feet", "yards", "meters", "kilometers", "miles", "nautical miles")
+
+val values  = arrayOf(
+    MM,
+    CM,
+    INCH,
+    FOOT,
+    YD,
+    M,
+    KM,
+    MI,
+    NMI
+)
 

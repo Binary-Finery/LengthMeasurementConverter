@@ -1,20 +1,20 @@
-package com.spencerstudios.lengthmeasurementconverter
+package com.spencerstudios.lengthmeasurementconverter.utilities
 
 import android.content.Context
 import android.content.Intent
 import android.preference.PreferenceManager
 import android.widget.EditText
+import com.spencerstudios.lengthmeasurementconverter.constants.labels
 
 fun share(ctx: Context, editTexts : Array<EditText>){
-
-    val labels = arrayOf("millimeters: ", "centimeters: ", "inches: ", "feet: ", "yards: ", "meters: ", "kilometers: ", "miles: ", "nautical miles: ")
 
     val prefs = PreferenceManager.getDefaultSharedPreferences(ctx)
     val idx = prefs.getString("units", "111111111")!!
     val sb = StringBuilder()
 
-    for(i in 0 until editTexts.size){
-        if(idx[i] == '1') sb.append(labels[i]).append(editTexts[i].text.toString()).append("\n")
+    for(i in editTexts.indices){
+        if(idx[i] == '1') sb.append(editTexts[i].text.toString()).append(" ").append(
+            labels[i]).append("\n")
     }
 
     val i = Intent().apply {

@@ -1,9 +1,12 @@
-package com.spencerstudios.lengthmeasurementconverter
+package com.spencerstudios.lengthmeasurementconverter.dialogs
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import com.spencerstudios.lengthmeasurementconverter.R
+import com.spencerstudios.lengthmeasurementconverter.activities.MainActivity
+import com.spencerstudios.lengthmeasurementconverter.utilities.PrefUtils
 import kotlinx.android.synthetic.main.select_units.view.*
 
 class DialogFactory(private val ctx: Context) {
@@ -12,9 +15,11 @@ class DialogFactory(private val ctx: Context) {
     fun unitDialog() {
         val v = LayoutInflater.from(ctx).inflate(R.layout.select_units, null)
         val units = arrayOf(v.cb_mm, v.cb_cm, v.cb_inch, v.cb_ft, v.cb_yd, v.cb_m, v.cb_km, v.cb_mi, v.cb_nmi)
-        val prefs = PrefUtils(ctx).getUnits()
+        val prefs = PrefUtils(
+            ctx
+        ).getUnits()
 
-        for (i in 0 until prefs.length) {
+        for (i in prefs.indices) {
             units[i].isChecked = prefs[i] == '1'
         }
 
@@ -30,8 +35,10 @@ class DialogFactory(private val ctx: Context) {
                     units.forEach {
                         if (it.isChecked) sb.append("1") else sb.append("0")
                     }
-                    PrefUtils(ctx).setUnits("$sb")
-                    val activity = ctx as MainActivity
+                    PrefUtils(
+                        ctx
+                    ).setUnits("$sb")
+                    val activity : MainActivity = ctx as MainActivity
                     activity.displayUnits()
                 } else infoDialog()
             }
@@ -41,7 +48,7 @@ class DialogFactory(private val ctx: Context) {
 
     private fun infoDialog() {
         AlertDialog.Builder(ctx).apply {
-            setTitle("For Your Info")
+            setTitle("For Your Information")
             setMessage("you must select a minimum of two units")
             setPositiveButton("select units") { d, _ ->
                 unitDialog()
